@@ -11,7 +11,9 @@ function kvlist () {
 
 echo $(kvlist)
 
-kdir="./keys"
+vndir=$(echo $(kvlist) | tr -d '"')
+kdir="./keys/${vndir}"
+sdir="./secrets/${vndir}"
 
 #GETKEYLIST
 
@@ -45,5 +47,38 @@ for vname in $(kvlist); do
     for klist in $(listkeys $vname); do
         echo "Restore key ${klist} in ${vname}..."
         restorekey $klist $vname $kdir
+    done
+done
+
+#RESTORESECRETS
+function listsecrets () {
+    local slist
+    local vname
+
+    slist=$(ls $sdir)
+    vname=$(echo $(kvlist) |tr -d '"')
+    echo $slist
+}
+
+echo $(listsecrets)
+
+
+function restoresecret () {
+    local name=$(echo $1 | tr -d '"')
+    local dir=$3
+    local file="$dir/${name}"
+    local vname=$(echo $2 |tr -d '"')
+
+
+    az keyvault secret restore \
+      --file ${file} \
+      --subscription ${SUBSCRIPTION} \
+      --vault-name ${vname}
+}
+
+for vname in $(kvlist); do
+    for slist in $(listsecrets $vname); do
+        echo "Restore secret ${slist} in ${vname}..."
+        restoresecret $slist $vname $sdir
     done
 done
