@@ -26,7 +26,7 @@ function listkeys () {
     local name
     local list
 
-    name=$(echo $(kvlist) |tr -d '"')
+    name=$(echo $(kvlist) | tr -d '"')
     list=$(az keyvault key list --vault-name ${name} | jq '.[].name')
     echo $list
 }
@@ -48,8 +48,8 @@ function backupkey () {
       --subscription ${SUBSCRIPTION} \
       --vault-name ${name}
 }
-
-kdir="./keys"
+vndir=$(echo $(kvlist) | tr -d '"')
+kdir="./keys/${vndir}"
 mkdir -p $kdir
 chmod 777 $kdir
 
@@ -90,7 +90,7 @@ function backupsecret () {
 }
 
 
-sdir="./secrets"
+sdir="./secrets/${vndir}"
 mkdir -p $sdir
 chmod 777 $sdir
 
@@ -130,7 +130,7 @@ function backupcert () {
       --vault-name ${name}
 }
 
-cdir="./certificates"
+cdir="./certificates/${vndir}"
 mkdir -p $cdir
 chmod 777 $cdir
 
