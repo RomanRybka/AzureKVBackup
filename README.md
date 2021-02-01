@@ -1,7 +1,6 @@
 # AzureKVBackup/Restore
 Backups keys/secrets/certificates from keyvaults in Azure subscription to a local directories \
-for example "./keys/your_vault_name/keyname" \
-and restores keys/secrets from local directories.
+for example "./keys/your_vault_name/keyname" and restores keys/secrets from local directories. \
 Uses Azure CLI and jq (https://stedolan.github.io/jq/).
 
 Dependencies \
