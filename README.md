@@ -10,13 +10,14 @@ Installation \
 Run with bash regarding the action you need.
 
 Usage \
-Run backup.sh to backup your secrets to a local directories in "./secrets/your_vault_name/secretname" pattern. \ 
+Run backup.sh to backup your secrets to a local directories in "./secrets/your_vault_name/secretname" pattern. \
 Run restore.sh to restore your secrets back to your vault. \
 You need to define your subscription ID in SUBSCRIPTION var.
 
 Testing\
 You can use addkeys.sh and addsecrets.sh do add desired number of keys/secrets to your vault. \
-Define name for secret/key and desired number to create in while cycle.
+Define name for secret/key and desired number to create in while cycle. \
+You need to define your subscription ID in SUBSCRIPTION var. 
 
 Issues\
 Work only with one keyvault for now.
